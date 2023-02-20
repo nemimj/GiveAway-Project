@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+      }
+      .container {
+        width: 100vw;
+        height: 60vh;
+        background-color: antiquewhite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 4rem;
+      }
+      #note {
+        background-color: red;
+        text-align: center;
+        color: white;
+        padding: 0.5rem;
+      }
+
+      #names p {
+        padding: 0.1rem;
+      }
+
+      button {
+        padding: 0.6rem;
+        border-radius: 6px;
+        /* outline: 0; */
+        border: 0;
+        font-weight: bolder;
+        font-size: 1rem;
+        background-color: #2cd94fcc;
+      }
+      button:hover {
+        background-color: #2db548cc;
+      }
+      input {
+        margin-top: 5px;
+        margin-right: 10px;
+        padding: 0.5rem;
+        border: 0;
+        font-size: 1.2rem;
+      }
+    </style>
+    <title>Giveaway Project</title>
+  </head>
+  <body>
+    <h1 id="note"></h1>
+    <div class="container">
+      <div class="left">
+        <h2>Register Your Name</h2>
+        <input type="text" placeholder="Enter your name" id="name" required />
+        <button id="btn" onclick="reg()">Register</button>
+      </div>
+      <div class="right">
+        <div id="name_list">
+          <h3>Giveaway Registered Names</h3>
+          <p id="names">
+            <p>Nemi</p>
+            <p>Ronny Coleman</p>
+            <p>Cbum</p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      let names = [];
+      let timer = 120000;
+
+      let reg = () => {
+        let element = document.getElementById("name").value;
+        names.push(element);
+        console.log(names);
+        const para = document.createElement("p");
+        const node = document.createTextNode(element);
+        para.appendChild(node);
+        document.getElementById("names").appendChild(para);
+      };
+
+      let inter = setInterval(() => {
+        timer -= 1000;
+
+        document.getElementById(
+          "note"
+        ).innerText = `Note : you have only ${timer} seconds left to register `;
+
+        if (timer === 0) {
+          clearInterval(inter);
+          let winner = names[Math.floor(Math.random() * names.length)];
+
+          let note = document.getElementById("note");
+          note.innerHTML = `Note : The Winner of the Contest is ${winner} `;
+          note.style.backgroundColor = "green";
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
